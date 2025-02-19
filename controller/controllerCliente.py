@@ -2,7 +2,7 @@ import services.database as db
 
 def IncluirDados(cliente):
     count = db.cursor.execute("""
-    INSERT INTO curriculo (nome, telefone, data_nascimento, email, universidade, 
+    INSERT INTO Cliente (nome, telefone, data_nascimento, email, universidade, 
     curso, semestre, experiencia, descricao, competencia)
     VALUES (?,?,?,?,?,?,?,?,?,?)""",
     cliente.nome, cliente.telefone, cliente.data_nascimento, cliente.email,
@@ -10,7 +10,7 @@ def IncluirDados(cliente):
     db.cnxn.commit()
 
 def MostrarDados(cliente):
-    db.cursor.execute("SELECT * FROM curriculo")
+    db.cursor.execute("SELECT * FROM Cliente")
     
     columns = [index[0] for index in db.cursor.description]
     lista = []

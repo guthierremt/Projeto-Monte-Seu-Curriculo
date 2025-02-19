@@ -1,6 +1,7 @@
 import streamlit as st
 import controller.controllerCliente as ct
 import models.Cliente as cliente
+from makePdf import gerar_pdf
 
 st.title("Criando meu Currículo")
 
@@ -33,7 +34,15 @@ if input_button:
     cliente.descricao = yourDescription
     cliente.competencia = yourCompetence
 
-    ct.IncluirDados(cliente)
+    # ct.IncluirDados(cliente)
 
+    pdf_output = gerar_pdf(cliente)
+
+    st.download_button(
+        label="Baixar Currículo em PDF",
+        data=pdf_output,
+        file_name="curriculo.pdf",
+        mime="application/pdf"
+    )
     
     st.success("Dados enviados com Sucesso !")
