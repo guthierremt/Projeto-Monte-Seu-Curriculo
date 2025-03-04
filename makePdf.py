@@ -10,33 +10,59 @@ def gerar_pdf(cliente):
     # Definir título
     pdf.set_font("Helvetica", size=16, style='B')
     pdf.cell(200, 10, txt=f"{cliente.nome}", ln=True, align='C')
+    
+    pdf.set_font("Helvetica", size=13)
+    pdf.cell(200, 10, txt=f"Desenvolvedor Web", ln=True, align='C')
+    
+    # Criar estrutura de duas colunas
+    left_x = 10
+    right_x = 110
+    start_y = 40
 
-    # Adicionando os dados pessoais
-    pdf.ln(10)
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt=f"E-mail: {cliente.email}", ln=True)
-    pdf.cell(200, 10, txt=f"Telefone: {cliente.telefone}", ln=True)
-    pdf.cell(200, 10, txt=f"Data de Nascimento: {cliente.data_nascimento}", ln=True)
+    pdf.set_font("Arial", size=12, style='B')
+    pdf.set_xy(left_x, start_y)
+    pdf.cell(90, 10, txt="INFORMAÇÕES PESSOAIS", ln=True)
 
-    # Adicionando formação acadêmica
-    pdf.ln(10)
-    pdf.cell(200, 10, txt="Formação Acadêmica:", ln=True)
-    pdf.cell(200, 10, txt=f"Universidade: {cliente.universidade}", ln=True)
-    pdf.cell(200, 10, txt=f"Curso: {cliente.curso}", ln=True)
-    pdf.cell(200, 10, txt=f"Semestre Atual: {cliente.semestre}", ln=True)
+    pdf.set_xy(right_x, start_y)
+    pdf.cell(90, 10, txt="EXPERIÊNCIA PROFISSIONAL", ln=True)
 
-    # Adicionando a experiência profissional e habilidades
-    pdf.ln(10)
-    pdf.cell(200, 10, txt="Experiência Profissional:", ln=True)
-    pdf.multi_cell(0, 10, txt=cliente.experiencia)
+    pdf.set_font("Arial", size=10)
+    start_y += 10
 
-    pdf.ln(10)
-    pdf.cell(200, 10, txt="Descrição Pessoal:", ln=True)
-    pdf.multi_cell(0, 10, txt=cliente.descricao)
+    # Primeira coluna - Informações Pessoais
+    pdf.set_xy(left_x, start_y)
+    pdf.multi_cell(90, 6, txt=cliente.descricao, align='L')
+    
+    pdf.ln(5)
+    pdf.set_font("Arial", size=12, style='B')
+    pdf.cell(90, 10, txt="ESPECIALIZAÇÕES", ln=True)
+    pdf.set_font("Arial", size=10)
+    pdf.multi_cell(90, 6, txt=cliente.competencia)
+    
+    pdf.ln(5)
+    pdf.set_font("Arial", size=12, style='B')
+    pdf.cell(90, 10, txt="ENTRE EM CONTATO COMIGO", ln=True)
+    pdf.set_font("Arial", size=10)
+    pdf.multi_cell(90, 6, txt=f"E-mail: {cliente.email}\nTelefone: {cliente.telefone}\nData de Nascimento: {cliente.data_nascimento}")
 
-    pdf.ln(10)
-    pdf.cell(200, 10, txt="Competências:", ln=True)
-    pdf.multi_cell(0, 10, txt=cliente.competencia)
+    pdf.ln(5)
+    pdf.set_font("Arial", size=12, style='B')
+    pdf.cell(90, 10, txt="INTERESSES PESSOAIS", ln=True)
+    pdf.set_font("Arial", size=10)
+    pdf.multi_cell(90, 6, txt=cliente.descricao, align='L')
+
+    # Segunda coluna - Experiência Profissional
+    pdf.set_xy(right_x, start_y)
+    pdf.multi_cell(90, 6, txt=cliente.experiencia)
+
+    # Formação alinhada corretamente abaixo da experiência profissional
+    pdf.ln(5)
+    pdf.set_font("Arial", size=12, style='B')
+    pdf.set_xy(right_x, pdf.get_y())
+    pdf.cell(90, 10, txt="FORMAÇÃO", ln=True)
+    pdf.set_font("Arial", size=10)
+    pdf.set_xy(right_x, pdf.get_y())
+    pdf.multi_cell(90, 6, txt=f"{cliente.universidade}\n{cliente.curso}\n{cliente.semestre}")
 
     # Salvar PDF em um objeto em memória
     pdf_output = io.BytesIO()
@@ -45,4 +71,3 @@ def gerar_pdf(cliente):
     pdf_output.seek(0)
 
     return pdf_output.getvalue()
-
