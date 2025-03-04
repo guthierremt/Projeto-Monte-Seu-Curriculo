@@ -1,2 +1,2 @@
-streamlit== 1.23.1
+streamlit== 1.37.0
 pyodbc==4.0.39
