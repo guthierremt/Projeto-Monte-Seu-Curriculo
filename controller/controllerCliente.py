@@ -1,4 +1,3 @@
-import services.database as db
 
 # def IncluirDados(cliente):
 #     count = db.cursor.execute("""
