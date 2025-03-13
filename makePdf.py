@@ -8,7 +8,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Flowable
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.colors import black
 from reportlab.lib.units import inch
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
+from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT, TA_JUSTIFY
 from reportlab.platypus import Image
 
 class HorizontalLine(Flowable):
@@ -146,7 +146,7 @@ def create_pdf(cliente):
     story.append(HorizontalLine(line_width, line_thickness))  # Usando o estilo personalizado
     story.append(Spacer(1, 16))
 
-    phone_icon_path = "images/phone-call.png"
+    phone_icon_path = "images/phone.png"
     email_icon_path = "images/email.png"
     icon_size =12
     contact_info = f"""
@@ -204,27 +204,28 @@ def create_pdf_modelo3(cliente):
         leading=22,
         alignment=TA_LEFT,
         fontName='Helvetica-Bold',
-        spaceAfter=6
+        spaceAfter=0,
     ))
     styles.add(ParagraphStyle(
         name='TitleStyle',
         fontSize=22,
         leading=22,
         alignment=TA_RIGHT,
+        leftIndent=40,
         fontName='Helvetica-Bold',
-        spaceAfter=6
+        spaceBefore=-20
     ))
     styles.add(ParagraphStyle(
         name='SubtitleStyle',
         fontSize=12,
-        leading=14,
-        alignment=TA_LEFT,
+        leading=20,
+        alignment=TA_RIGHT,
         fontName='Helvetica',
         spaceAfter=6
     ))
     styles.add(ParagraphStyle(
         name='SectionTitle',
-        fontSize=12,
+        fontSize=16,
         leading=14,
         alignment=TA_LEFT,
         fontName='Helvetica-Bold',
@@ -242,31 +243,31 @@ def create_pdf_modelo3(cliente):
 
     story = []
 
+    phonePath2 = "images/phone-call.png"
+    emailPath2 = "images/email2.png"
+    addresPath = "images/navigation.png"
+    iconSize = 12
 
-    phone_icon_path = "images/profile.jpg"
-    icon_size =180
-    contact_info = f"""
-    <img src="{phone_icon_path}" width="{icon_size}" height="{icon_size}" valign="middle"/> 
+    imagePatch = "images/profile.jpg"
+    imageSize =180
+    
+    imageInfo = f"""
+    <img src="{imagePatch}" width="{imageSize}" height="{imageSize}" valign="top"/> 
+    """
+    story.append(Paragraph(imageInfo, styles["PicStyle"]))
+    # Nome (yourName)
+    story.append(Spacer(1, -20))
+    story.append(Paragraph(cliente.dados["yourName"], styles["TitleStyle"]))
+    story.append(Spacer(1, 14))
+
+    iconInfo = f"""
+    {cliente.dados['yourAdress']} <img src="{addresPath}" width="{iconSize}" height="{iconSize}" valign="middle"/><br/>
+    {cliente.dados['yourEmail']} <img src="{emailPath2}" width="{iconSize}" height="{iconSize}" valign="middle"/><br/>
+    {cliente.dados['yourFone']} <img src="{phonePath2}" width="{iconSize}" height="{iconSize}" valign="middle"/><br/>
     """
     story.append(Spacer(1, 2))
-    story.append(Paragraph(contact_info, styles["PicStyle"]))
-    story.append(Spacer(1, 6))
-    
-    # Nome (yourName)
-    story.append(Paragraph(cliente.dados["yourName"], styles["TitleStyle"]))
-    story.append(Spacer(1, 6))
-
-    # Endereço (yourAddress)
-    story.append(Paragraph(cliente.dados["yourAdress"], styles["SubtitleStyle"]))
-    story.append(Spacer(1, 6))
-
-    # Email (yourEmail)
-    story.append(Paragraph(cliente.dados["yourEmail"], styles["SubtitleStyle"]))
-    story.append(Spacer(1, 6))
-
-    # Telefone (yourFone)
-    story.append(Paragraph(cliente.dados["yourFone"], styles["SubtitleStyle"]))
-    story.append(Spacer(1, 12))
+    story.append(Paragraph(iconInfo, styles["SubtitleStyle"]))
+    story.append(Spacer(1, 70))
 
     # Linha horizontal
     story.append(Paragraph("<hr/>", styles["CustomBodyText"]))  # Usando o estilo personalizado
@@ -295,7 +296,7 @@ def create_pdf_modelo3(cliente):
 
     # Cursos Adicionais (yourCourses)
     story.append(Paragraph("Cursos Adicionais", styles["SectionTitle"]))
-    story.append(Paragraph(cliente.dados["yourCourse"], styles["CustomBodyText"]))  # Usando o estilo personalizado
+    story.append(Paragraph(cliente.dados["courseTecn"], styles["CustomBodyText"]))  # Usando o estilo personalizado
     story.append(Spacer(1, 12))
 
     # Idiomas (yourLanguages)
