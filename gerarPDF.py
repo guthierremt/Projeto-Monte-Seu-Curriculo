@@ -10,6 +10,7 @@ from reportlab.lib.colors import black
 from reportlab.lib.units import inch
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT, TA_JUSTIFY
 from reportlab.platypus import Image
+from PIL import Image, ImageDraw, ImageOps
 
 class HorizontalLine(Flowable):
     def __init__(self, width, thickness=1, color=black):
@@ -114,7 +115,7 @@ def gerarModelo1(cliente):
     return pdf_output.getvalue()
 
 
-def create_pdf(cliente):
+def gerarModelo2(cliente):
     """
     Cria um PDF com base nos dados armazenados na instância da classe Cliente.
 
@@ -186,7 +187,27 @@ def create_pdf(cliente):
     return buffer.getvalue()  # Retorna os bytes do PDF
 
 
-def create_pdf_modelo3(cliente):
+def create_circular_image(image_path, output_path):
+    # Abrir a imagem
+    img = Image.open(image_path).convert("RGBA")
+
+    # Definir um tamanho quadrado com base na menor dimensão
+    size = min(img.size)
+    img = img.resize((size, size), Image.LANCZOS)
+
+    # Criar uma máscara circular
+    mask = Image.new("L", (size, size), 0)
+    draw = ImageDraw.Draw(mask)
+    draw.ellipse((0, 0, size, size), fill=255)
+
+    # Aplicar a máscara circular à imagem
+    circular_image = Image.new("RGBA", (size, size))
+    circular_image.paste(img, (0, 0), mask)
+
+    # Salvar a imagem circular
+    circular_image.save(output_path, format="PNG")
+
+def gerarModelo3(cliente):
     """
     Cria um PDF com base no modelo 3, utilizando os dados da instância da classe Cliente.
 
@@ -248,7 +269,10 @@ def create_pdf_modelo3(cliente):
     addresPath = "images/navigation.png"
     iconSize = 12
 
-    imagePatch = "images/profile.jpg"
+    output_path = "images/profile_circular.png"
+    create_circular_image(cliente.dados["yourPic"], output_path)
+
+    imagePatch = output_path
     imageSize =180
     
     imageInfo = f"""
@@ -256,7 +280,7 @@ def create_pdf_modelo3(cliente):
     """
     story.append(Paragraph(imageInfo, styles["PicStyle"]))
     # Nome (yourName)
-    story.append(Spacer(1, -20))
+    story.append(Spacer(1, 10))
     story.append(Paragraph(cliente.dados["yourName"], styles["TitleStyle"]))
     story.append(Spacer(1, 14))
 
@@ -267,11 +291,11 @@ def create_pdf_modelo3(cliente):
     """
     story.append(Spacer(1, 2))
     story.append(Paragraph(iconInfo, styles["SubtitleStyle"]))
-    story.append(Spacer(1, 70))
+    story.append(Spacer(1, 50))
 
     # Linha horizontal
     story.append(Paragraph("<hr/>", styles["CustomBodyText"]))  # Usando o estilo personalizado
-    story.append(Spacer(1, 12))
+    story.append(Spacer(1, 2))
 
     # Objetivo (yourObjective)
     story.append(Paragraph("Objetivo", styles["SectionTitle"]))

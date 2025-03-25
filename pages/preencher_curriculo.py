@@ -1,7 +1,8 @@
 import streamlit as st
 import controller.controllerCliente as ct
 from models.Cliente import Cliente
-from makePdf import gerarModelo1, create_pdf, create_pdf_modelo3
+from gerarPDF import gerarModelo1, gerarModelo2, gerarModelo3
+
 
 def gerarCampos(modelo):
     if modelo == "Modelo 1":
@@ -46,6 +47,7 @@ def gerarCampos(modelo):
         }
     elif modelo == "Modelo 3":
         return {
+            "yourPic": st.file_uploader('Faça o upload da sua foto'),
             "yourName": st.text_input('Nome Completo'),
             "yourFone": st.text_input('Telefone', max_chars=15, placeholder='(99) 9 9999-9999'),
             "yourEmail": st.text_input('Email', max_chars=40),
@@ -61,11 +63,11 @@ def gerarCampos(modelo):
             "qualificationProfiss": st.text_area('Qualificação Profissional', max_chars=200),
         }
 
-def criar_curriculo():
-    st.title("Preencha os campos abaixo")
+def criarCurriculo():
+    st.title("Preencher Currículo")
 
     if "selected_model" not in st.session_state:
-        st.warning("Selecione um modelo na página principal.")
+        st.warning("Selecione um modelo na outra página.")
         return
 
     modelo = st.session_state["selected_model"]
@@ -81,10 +83,10 @@ def criar_curriculo():
             pdf_output = gerarModelo1(cliente)
         elif modelo == "Modelo 2":
             cliente.modelo2(**campos)
-            pdf_output = create_pdf(cliente)
+            pdf_output = gerarModelo2(cliente)
         elif modelo == "Modelo 3":
             cliente.modelo3(**campos)
-            pdf_output = create_pdf_modelo3(cliente)
+            pdf_output = gerarModelo3(cliente)
     
         
 
@@ -97,5 +99,8 @@ def criar_curriculo():
         
         st.success("Dados enviados com Sucesso!")
 
-if __name__ == "__main__":
-    criar_curriculo()
+
+
+
+
+criarCurriculo()
