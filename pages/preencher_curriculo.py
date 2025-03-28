@@ -33,6 +33,7 @@ def gerarCampos(modelo):
             "yourName": st.text_input('Nome Completo'),
             "yourFone": st.text_input('Telefone', max_chars=15, placeholder='(99) 9 9999-9999'),
             "yourEmail": st.text_input('Email', max_chars=40),
+            "yourAdress": st.text_input('Endereço', max_chars=100, placeholder='Rua Bandeirante - 1990'),
             "yourObjective": st.text_area('Objetivos', max_chars=250),
             "formation": st.header("Formação Acadêmica"),
             "yourUniversity": st.text_input('Instituição de Ensino', max_chars=50),
@@ -45,6 +46,8 @@ def gerarCampos(modelo):
             "conclusionCompany": st.text_input('Tempo de trabalho', max_chars=50, placeholder='De 2020 até 2021'),
             "descriptionAtv": st.text_area('Descrição da Atividade na empresa', max_chars=200),
         }
+    
+    ## Arrumar gerar PDF MODELO 3
     elif modelo == "Modelo 3":
         return {
             "yourPic": st.file_uploader('Faça o upload da sua foto'),
@@ -54,10 +57,15 @@ def gerarCampos(modelo):
             "yourAdress": st.text_input('Endereço', max_chars=100),
             "yourObjective": st.text_area('Objetivos', max_chars=250),
             "formation": st.header("Formação Acadêmica"),
+            "yourUniversity": st.text_input('Instituição de Ensino', max_chars=50),
             "yourCourse": st.text_input('Curso', max_chars=30),
             "conclusionUniversity": st.text_input('Ano de Conclusão', max_chars=30, placeholder='De 2020 até 2021'),
             "profission": st.header("Experiência Profissional"),
-            "yourExperience": st.text_area("Descreva sua Experiencia Profissional. Ex Empresas que trabalhou, Cargo, Descrição da atividade", max_chars=400),
+            "yourTitle": st.text_input('Título Profissional', max_chars=30),
+            "yourFunction": st.text_input('Seu cargo na empresa', max_chars=40),
+            "company": st.text_input('Empresa', max_chars=50),
+            "conclusionCompany": st.text_input('Tempo de trabalho', max_chars=50, placeholder='De 2020 até 2021'),
+            "descriptionAtv": st.text_area('Descrição da Atividade na empresa', max_chars=200),
             "languages": st.text_input('Idiomas', max_chars=50),
             "courseTecn": st.text_area('Cursos Técnicos', max_chars=200),
             "qualificationProfiss": st.text_area('Qualificação Profissional', max_chars=200),
@@ -81,6 +89,10 @@ def criarCurriculo():
         if modelo == "Modelo 1":
             cliente.modelo1(**campos)
             pdf_output = gerarModelo1(cliente)
+            ct.IncluirUsuario(cliente)
+            ct.IncluirInfoProfissional(cliente)
+            ct.IncluirFormacaoAcademica(cliente)
+            ct.IncluirModelo1(cliente)
         elif modelo == "Modelo 2":
             cliente.modelo2(**campos)
             pdf_output = gerarModelo2(cliente)
