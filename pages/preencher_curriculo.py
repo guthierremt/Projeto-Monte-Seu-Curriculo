@@ -1,7 +1,9 @@
 import streamlit as st
+import time
 import controller.controllerCliente as ct
 from models.Cliente import Cliente
 from gerarPDF import gerarModelo1, gerarModelo2, gerarModelo3
+
 
 def gerarCampos(modelo):
     if modelo == "Modelo 1":
@@ -71,7 +73,7 @@ def gerarCampos(modelo):
         }
 
 def criarCurriculo():
-    st.title("Preencher Currículo")
+    st.title("Coloque suas informações abaixo ")
 
     if "selected_model" not in st.session_state:
         st.warning("Selecione um modelo primeiro.")
@@ -107,15 +109,21 @@ def criarCurriculo():
             ct.IncluirFormacaoAcademica(cliente)
             ct.IncluirModelo3(cliente)    
         
+        with st.spinner("Enviando dados..."):
+            time.sleep(5)
+
+        st.success("Dados enviados com Sucesso!")
 
         st.download_button(
-            label="Baixar Currículo em PDF",
+            label="Baixar Currículo",
             data=pdf_output,
             file_name="curriculo.pdf",
-            mime="application/pdf"
+            mime="application/pdf",
+            icon=":material/download:"
         )
         
-        st.success("Dados enviados com Sucesso!")
+      
 
 
 criarCurriculo()
+

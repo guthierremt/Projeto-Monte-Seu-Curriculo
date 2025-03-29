@@ -309,7 +309,10 @@ def gerarModelo3(cliente):
 
     # Experiência Profissional (yourExperience)
     story.append(Paragraph("Experiência Profissional", styles["SectionTitle"]))
-    story.append(Paragraph(cliente.dados["yourExperience"], styles["CustomBodyText"]))  # Usando o estilo personalizado
+    story.append(Paragraph(cliente.dados["yourFunction"], styles["CustomBodyText"]))  # Usando o estilo personalizado
+    story.append(Paragraph(cliente.dados["company"], styles["CustomBodyText"]))
+    story.append(Paragraph(cliente.dados["conclusionCompany"], styles["CustomBodyText"]))
+    story.append(Paragraph(cliente.dados["descriptionAtv"], styles["CustomBodyText"]))
     story.append(Spacer(1, 12))
 
     # Formação (yourEducation)
