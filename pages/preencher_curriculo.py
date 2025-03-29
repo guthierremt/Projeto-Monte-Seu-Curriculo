@@ -3,7 +3,6 @@ import controller.controllerCliente as ct
 from models.Cliente import Cliente
 from gerarPDF import gerarModelo1, gerarModelo2, gerarModelo3
 
-
 def gerarCampos(modelo):
     if modelo == "Modelo 1":
         return {
@@ -75,7 +74,7 @@ def criarCurriculo():
     st.title("Preencher Currículo")
 
     if "selected_model" not in st.session_state:
-        st.warning("Selecione um modelo na outra página.")
+        st.warning("Selecione um modelo primeiro.")
         return
 
     modelo = st.session_state["selected_model"]
@@ -96,10 +95,17 @@ def criarCurriculo():
         elif modelo == "Modelo 2":
             cliente.modelo2(**campos)
             pdf_output = gerarModelo2(cliente)
+            ct.IncluirUsuario(cliente)
+            ct.IncluirInfoProfissional(cliente)
+            ct.IncluirFormacaoAcademica(cliente)
+            ct.IncluirModelo2(cliente)
         elif modelo == "Modelo 3":
             cliente.modelo3(**campos)
             pdf_output = gerarModelo3(cliente)
-    
+            ct.IncluirUsuario(cliente)
+            ct.IncluirInfoProfissional(cliente)
+            ct.IncluirFormacaoAcademica(cliente)
+            ct.IncluirModelo3(cliente)    
         
 
         st.download_button(
@@ -110,9 +116,6 @@ def criarCurriculo():
         )
         
         st.success("Dados enviados com Sucesso!")
-
-
-
 
 
 criarCurriculo()

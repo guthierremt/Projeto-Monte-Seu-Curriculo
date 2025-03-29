@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS usuario (
 ''')
 
 db.cursor.execute('''
-CREATE TABLE formacaoAcademica (
+CREATE TABLE IF NOT EXISTS formacaoAcademica (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     instituicao TEXT NOT NULL,
     curso TEXT NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE formacaoAcademica (
 
 
 db.cursor.execute('''
-CREATE TABLE profissional (
+CREATE TABLE IF NOT EXISTS profissional (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     empresa TEXT NOT NULL,
     tituloProfissional TEXT NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE profissional (
 
 
 db.cursor.execute('''
-CREATE TABLE modelo1 (
+CREATE TABLE IF NOT EXISTS modelo1 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     infoFormacao TEXT NOT NULL,
     especializacao TEXT NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE modelo1 (
 
 
 db.cursor.execute('''
-CREATE TABLE modelo2 (
+CREATE TABLE IF NOT EXISTS modelo2 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     objetivos TEXT NOT NULL,
     id_usuario INTEGER,
@@ -60,7 +60,7 @@ CREATE TABLE modelo2 (
 ''')
 
 db.cursor.execute('''
-CREATE TABLE modelo3 (
+CREATE TABLE IF NOT EXISTS modelo3 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     foto TEXT NOT NULL,
     objetivos TEXT NOT NULL,
@@ -70,4 +70,5 @@ CREATE TABLE modelo3 (
     FOREIGN KEY (id_usuario) REFERENCES usuario (id) ON DELETE CASCADE ON UPDATE CASCADE
         )
 ''')
+
 
