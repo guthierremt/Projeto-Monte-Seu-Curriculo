@@ -1,35 +1,79 @@
 # Gere seu Currículo
 
-A aplicação foi feita usando Streamlit para o front do projeto e 
-SQL Server como banco de dados pra armazenar as informações  do usuário.
+Este projeto é uma aplicação desenvolvida utilizando Streamlit, que permite gerar currículos de forma prática e interativa. A aplicação coleta os dados inseridos pelo usuário diretamente no formulário e os utiliza para criar um currículo personalizado. Todas as informações são armazenadas no banco de dados SQLite.
 
 ### Bibliotecas usadas no Projeto
 #### Streamlit 
-Uma biblioteca Python que facilita a criação de aplicativos web interativos para visualização de dados e prototipagem rápida.
+Uma biblioteca em Python que facilita a criação de aplicativos web interativos, ideal para visualização de dados e prototipagem rápida.
 
-#### Pyodbc 
-É uma biblioteca Python que permite o acesso a bancos de dados usando a API ODBC (Open Database Connectivity). 
-Ela facilita a conexão, execução de consultas e manipulação de dados em bancos de dados como SQL Server, MySQL.
+#### SQLITE 
+SQLite é um sistema de gerenciamento de banco de dados leve e integrado. Neste projeto, ele é usado para armazenar os dados fornecidos pelos usuários de forma eficiente e prática.
 
-#### FPDF 
-Uma biblioteca Python para criar documentos PDF.
+#### FPDF e REPORTLAB
+Bibliotecas Python para criar documentos PDF.
+
+# Alguns prints do projeto ⬇️
+
+# Inicio
+
+![image](https://github.com/user-attachments/assets/192a2084-a99b-4cf4-a032-493c11587a7a)
 
 
-# Escolha dos modelos de currículo
+Na tela inicial, o usuário pode visualizar os modelos de currículos disponíveis e as características de cada um.
 
-![Captura de tela 2025-03-03 221216](https://github.com/user-attachments/assets/f56bda68-8266-43b9-a243-d9177066eca5)
+#### Logo abaixo há também um botão que leva diretamente à página de seleção de modelos.
+![image](https://github.com/user-attachments/assets/39e60a94-02ad-49aa-80ec-e51f180bccb2)
 
-Ao ser selecionado o modelo, é liberado a página de criação do currículo.
+# Seleção dos modelos
 
-# Criação do currículo
+![image](https://github.com/user-attachments/assets/b6922847-465f-44c6-9c01-ea43d3626f94)
 
-![Captura de tela 2025-03-03 221250](https://github.com/user-attachments/assets/5ecf357f-d757-4296-9c6a-407f89383ae9)
+Nesta etapa, o usuário escolhe seu modelo de currículo preferido e é redirecionado para uma página onde pode preencher as informações necessárias.
 
-A depender do modelo escolhido as informações a preencher podem mudar.
+# Preencher com as informações
 
-Terminado de preencher todas as informações já aparece a opção de Baixar como PDF
+![image](https://github.com/user-attachments/assets/58a2df12-b574-448e-b41a-daac9a9e691e)
 
-![Captura de tela 2025-03-03 221852](https://github.com/user-attachments/assets/38d41324-c7df-4ab7-a508-e84af5a97586)
+Depois de preencher os campos com as informações pessoais, acadêmicas e profissionais, o usuário tem acesso ao botão para download do currículo gerado.
+
+![image](https://github.com/user-attachments/assets/c5262b6e-b5d7-4aae-80c9-9cd98b922d6c)
+
+## Exemplo de Perfil usando o Modelo 3
+![image](https://github.com/user-attachments/assets/5f5ccfce-58b7-4641-8ed2-c66d4e2844c7)
+## Como Executar o Projeto
+
+Abra o terminal e execute os seguintes comandos:
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/seu-repositorio.git
+```
+```bash
+# Navegue até o diretório do projeto
+cd seu-repositorio
+```
+```bash
+# Instale as dependências
+pip install -r requirements.txt
+```
+```bash
+# Execute a aplicação
+streamlit run app.py
+```
+
+
+---
+
+### Se estiver com problemas em rodar o Streamlit com o comando acima, tente esse:
+```bash
+
+python -m streamlit run app.py
+```
+
+
+Se precisar de mais ajustes ou outros exemplos, é só falar! 🚀
+
+
 
 
 
