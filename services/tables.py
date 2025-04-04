@@ -70,5 +70,3 @@ CREATE TABLE IF NOT EXISTS modelo3 (
     FOREIGN KEY (id_usuario) REFERENCES usuario (id) ON DELETE CASCADE ON UPDATE CASCADE
         )
 ''')
-
-
