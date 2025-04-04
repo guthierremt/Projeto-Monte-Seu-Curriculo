@@ -1,6 +1,7 @@
 class Cliente:
     def __init__(self):
         self.dados = {}
+        self.id_usuario = None
 
     def modelo1(self, **kwargs):
         self.dados = kwargs

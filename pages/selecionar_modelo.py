@@ -21,7 +21,7 @@ def main():
 
     with col1:
         st.header("Modelo 1")
-        st.image("images\modelo1.png")
+        st.image("images/modelo1.png")
         if st.button("Selecionar Modelo 1"):
             st.session_state["selected_model"] = "Modelo 1"
             st.query_params = {"page": "Criar Currículo"}

@@ -8,7 +8,12 @@ selecionar_modelo = st.Page(
     page = "pages/selecionar_modelo.py",
     title="Selecionar Modelo")
 
-pg = st.navigation(pages=[preencher_curriculo, selecionar_modelo])
+inicio = st.Page(
+    page = "pages/inicio.py",
+    title="Inicio",
+    default=True,)
+
+pg = st.navigation(pages=[inicio, preencher_curriculo, selecionar_modelo])
 
 pg.run()
 
