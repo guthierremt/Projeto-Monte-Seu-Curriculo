@@ -71,9 +71,4 @@ python -m streamlit run app.py
 ```
 
 
-Se precisar de mais ajustes ou outros exemplos, é só falar! 🚀
-
-
-
-
 
